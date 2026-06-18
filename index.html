@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <!-- Faz a página se adaptar a celulares (responsiva) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ===== TÍTULO DA ABA DO NAVEGADOR ===== -->
+  <title>Marcio Melquiades</title>
+
+  <style>
+    /* ============================================================
+       1. VARIÁVEIS DE COR  ->  ALTERE AS CORES AQUI
+       ============================================================ */
+    :root {
+      --cor-fundo:        #0a140d;  /* Fundo principal (verde quase preto) */
+      --cor-fundo-nav:    #0d2114;  /* Fundo da barra de navegação */
+      --cor-cartao:       #0f1d13;  /* Fundo dos cartões */
+      --cor-destaque:     #c6f532;  /* Verde-limão (botões e detalhes) */
+      --cor-texto:        #ffffff;  /* Texto principal (branco) */
+      --cor-texto-suave:  #9bb3a0;  /* Texto secundário (cinza esverdeado) */
+      --raio-borda:       16px;     /* Arredondamento dos cantos */
+    }
+
+    /* ============================================================
+       2. ESTILOS GERAIS (reset básico + fonte)
+       ============================================================ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--cor-fundo);
+      color: var(--cor-texto);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ============================================================
+       3. BARRA DE NAVEGAÇÃO
+       ============================================================ */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 60px;
+      background-color: var(--cor-fundo-nav);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* ===== LOGO =====
+       >>> TROQUE o src da imagem (no HTML) pela sua logo.
+       Use o arquivo na mesma pasta, ex.: logo.png <<< */
+    .logo img {
+      height: 40px;       /* ajuste o tamanho da logo aqui */
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--cor-texto-suave);
+      text-decoration: none;
+      font-size: 15px;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--cor-destaque);
+    }
+
+    /* ============================================================
+       4. BANNER (HERO)
+       ============================================================ */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 60px;
+      padding: 80px 60px;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .hero-texto {
+      max-width: 560px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--cor-destaque);
+      color: var(--cor-destaque);
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero-texto h1 {
+      font-size: 52px;
+      line-height: 1.15;
+      font-weight: 800;
+    }
+
+    /* ===== IMAGEM DO BANNER =====
+       >>> TROQUE src="banner.jpg" pela imagem que quiser. <<< */
+    .hero-imagem img {
+      width: 420px;
+      max-width: 100%;
+      border-radius: 12px;
+      display: block;
+    }
+
+    /* ============================================================
+       5. CONTAINER DO CONTEÚDO (cartões)
+       ============================================================ */
+    .container {
+      width: 100%;
+      max-width: 900px;        /* aumentado para caber os 2 cartões */
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+      text-align: center;
+    }
+
+    /* ----- Linha que coloca os cartões LADO A LADO ----- */
+    .cartoes {
+      display: flex;
+      gap: 28px;
+      align-items: stretch;    /* deixa os cartões com a mesma altura */
+    }
+
+    .cartoes .cartao {
+      flex: 1;                 /* cada cartão ocupa metade do espaço */
+    }
+
+    /* ============================================================
+       6. FOTO DE PERFIL  ->  TROQUE A IMAGEM
+       ============================================================ */
+    .foto-perfil {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--cor-destaque);
+      margin-bottom: 16px;
+    }
+
+    /* ============================================================
+       7. NOME E DESCRIÇÃO
+       ============================================================ */
+    .nome {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .descricao {
+      font-size: 15px;
+      color: var(--cor-texto-suave);
+      margin-bottom: 36px;
+      line-height: 1.5;
+    }
+
+    /* ============================================================
+       8. CARTÃO DE LINK (com imagem de destaque)
+       ============================================================ */
+    .cartao {
+      background-color: var(--cor-cartao);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--raio-borda);
+      overflow: hidden;
+      margin-bottom: 28px;
+      text-align: left;
+      transition: transform 0.2s ease;
+    }
+
+    .cartao:hover {
+      transform: translateY(-4px);
+    }
+
+    .cartao-imagem {
+      position: relative;
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+    }
+
+    .cartao-imagem::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,20,13,0.95), rgba(10,20,13,0.2));
+    }
+
+    .cartao-titulo-imagem {
+      position: relative;
+      z-index: 1;
+      color: var(--cor-destaque);
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .cartao-conteudo {
+      padding: 20px;
+    }
+
+    .cartao-selo {
+      color: var(--cor-destaque);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .cartao-titulo {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .cartao-descricao {
+      font-size: 14px;
+      color: var(--cor-texto-suave);
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .cartao-botao {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background-color: var(--cor-destaque);
+      color: var(--cor-fundo);
+      text-align: center;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 10px;
+      transition: opacity 0.2s ease;
+    }
+
+    .cartao-botao:hover {
+      opacity: 0.85;
+    }
+
+    /* ============================================================
+       9. RODAPÉ
+       ============================================================ */
+    .rodape {
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--cor-texto-suave);
+    }
+
+    /* ============================================================
+       10. RESPONSIVO (celular)
+       ============================================================ */
+    @media (max-width: 900px) {
+      .navbar { padding: 18px 24px; }
+      .nav-links { gap: 20px; }
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 50px 24px;
+      }
+      .hero-texto h1 { font-size: 36px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+       BARRA DE NAVEGAÇÃO
+       ============================================================ -->
+  <nav class="navbar">
+
+    <!-- ===== LOGO =====
+         TROQUE o src abaixo pela sua logo.
+         Coloque o arquivo na mesma pasta (ex.: logo.png) -->
+    <div class="logo">
+      <a href="index.html">
+        <img src="logo.png" alt="Smart Sales">
+      </a>
+    </div>
+
+    <!-- ===== LINKS DE NAVEGAÇÃO =====
+         Apontam para páginas que você criará depois. -->
+    <ul class="nav-links">
+      <li><a href="trilhas.html">Nossas Trilhas</a></li>
+      <li><a href="depoimentos.html">Depoimentos</a></li>
+      <li><a href="quem-somos.html">Quem Somos</a></li>
+    </ul>
+
+  </nav>
+
+  <!-- ============================================================
+       BANNER (HERO)
+       ============================================================ -->
+  <section class="hero">
+
+    <div class="hero-texto">
+      <span class="tag">★ Sprint AgTech</span>
+      <h1>O setor que sempre trabalhou no hard, também é pioneiro no smart</h1>
+    </div>
+
+    <!-- ===== IMAGEM DO BANNER =====
+         TROQUE o src abaixo pela imagem desejada -->
+    <div class="hero-imagem">
+      <img src="perfil.jpg" alt="Imagem do banner">
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       CONTEÚDO ORIGINAL (PERFIL + CARTÕES)
+       ============================================================ -->
+  <div class="container">
+
+    <!-- ===== FOTO DE PERFIL =====
+         TROQUE o link abaixo pela URL da foto do Marcio. -->
+    <img
+      class="foto-perfil"
+      src="perfil.jpg"
+      alt="Foto de Marcio Melquiades">
+
+    <!-- ===== NOME ===== -->
+    <h1 class="nome">Marcio Melquiades</h1>
+
+    <!-- ===== DESCRIÇÃO / BIO ===== -->
+    <p class="descricao">
+      Conteúdos sobre vendas, negócios e crescimento.<br>
+      Acompanhe meus canais 👇
+    </p>
+    <!-- ===== CARTÕES LADO A LADO ===== -->
+  <div class="cartoes">
+    <!-- ===== CARTÃO 1 — YOUTUBE ===== -->
+    <div class="cartao">
+      <div class="cartao-imagem"
+           style="background-image: url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800');">
+        <span class="cartao-titulo-imagem">YOUTUBE</span>
+      </div>
+      <div class="cartao-conteudo">
+        <div class="cartao-selo">Vídeos e aulas</div>
+        <div class="cartao-titulo">Conteúdo em vídeo toda semana</div>
+        <p class="cartao-descricao">
+          Estratégias práticas de vendas direto no seu feed.
+        </p>
+        <a class="cartao-botao" href="https://www.youtube.com/@omarciomelquiades" target="_blank">
+          inscreva-se no canal →
+        </a>
+      </div>
+    </div>
+
+    <!-- ===== CARTÃO 2 — SUBSTACK ===== -->
+    <div class="cartao">
+      <div class="cartao-imagem"
+           style="background-image: url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800');">
+        <span class="cartao-titulo-imagem">SUBSTACK</span>
+      </div>
+      <div class="cartao-conteudo">
+        <div class="cartao-selo">Newsletter</div>
+        <div class="cartao-titulo">Insights na sua caixa de entrada</div>
+        <p class="cartao-descricao">
+          Análises e bastidores que não cabem no vídeo.
+        </p>
+        <a class="cartao-botao" href="https://substack.com/@marciomelquiades" target="_blank">
+          assinar newsletter →
+        </a>
+      </div>
+    </div>
+  </div>
+    <!-- fim .cartoes -->
+    <!-- ===== RODAPÉ ===== -->
+    <footer class="rodape">
+      © 2026 Marcio Melquiades
+    </footer>
+
+  </div>
+
+</body>
+</html>
